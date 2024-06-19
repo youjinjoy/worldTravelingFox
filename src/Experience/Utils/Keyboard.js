@@ -7,7 +7,7 @@ export default class Keyboard extends EventEmitter
         super()
 
         this.keyState = {}
-        this.direction = "up"
+        this.direction = null
         this.init()
 
     }
@@ -16,26 +16,26 @@ export default class Keyboard extends EventEmitter
     {
         window.addEventListener('keydown', (event) =>
         {
-            this.keyState[event.key] = true
-
-            this.updateDirection()
+            this.updateDirection(event.key)
+            this.keyState[this.direction] = true
             this.trigger('keydown', [this.direction])
         })
 
         window.addEventListener('keyup', (event) =>
         {
-            this.keyState[event.key] = false
-            this.updateDirection()
+            this.updateDirection(event.key)
+            this.keyState[this.direction] = false
             this.trigger('keyup', [this.direction])
         })
     }
 
-    updateDirection()
+    updateDirection(key)
     {
-        if (this.keyState.ArrowUp || this.keyState.w) this.direction = "up"
-        if (this.keyState.ArrowDown || this.keyState.s) this.direction = "down"
-        if (this.keyState.ArrowRight || this.keyState.d) this.direction = "right"
-        if (this.keyState.ArrowLeft || this.keyState.a) this.direction = "left"
+        this.direction = null
+        if (key === 'ArrowUp' || key === 'w') this.direction = "up"
+        if (key === 'ArrowDown' || key === 's') this.direction = "down"
+        if (key === 'ArrowRight' || key === 'd') this.direction = "right"
+        if (key === 'ArrowLeft' || key === 'a') this.direction = "left"
     }
 
 }

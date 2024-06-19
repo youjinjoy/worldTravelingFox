@@ -9,14 +9,12 @@ export default class Movable
 
         this.keyboard.on('keydown', (direction) =>
         {
-            this.move(direction)
-            this.moving = true
+            this.direction = direction
         })
 
-        this.keyboard.on('keyup', (direction) =>
-        {
-            this.moving = false
-        })
+        // this.keyboard.on('keyup', (direction) =>
+        // {     
+        // })
 
         this.moveSpeed = 0.1
         this.moving = false
@@ -26,22 +24,19 @@ export default class Movable
         this.angle = 0
     }
 
-    move(direction)
+    move()
     {
-        switch(direction){
-            case "up":
-                this.model.position.z -= this.moveSpeed
-                break
-            case "down":
-                this.model.position.z += this.moveSpeed
-                break
-            case "left":
-                this.model.position.x -= this.moveSpeed
-                break
-            case "right":
-                this.model.position.x += this.moveSpeed
-                break
-        }
+        console.log(this.keyboard.keyState)
+        // if (this.direction == null) return
+        if (this.direction === "up") this.model.position.z -= this.moveSpeed
+        if (this.direction === "down") this.model.position.z += this.moveSpeed
+        if (this.direction === "left") this.model.position.x -= this.moveSpeed
+        if (this.direction === "right") this.model.position.x += this.moveSpeed
+    }
+
+    getAngle()
+    {
+
     }
 
 }

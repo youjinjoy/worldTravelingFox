@@ -24,10 +24,7 @@ export default class Fox extends Movable
         this.resource = this.resources.items.foxModel
 
         this.setModel()
-
-        const test = new Movable(this.model)
-        console.log(test)
-
+        console.log(this.model)
         this.setAnimation()
     }
 
@@ -95,8 +92,10 @@ export default class Fox extends Movable
     update()
     {
         this.animation.mixer.update(this.time.delta * 0.001)
-
-        if(this.moving) this.animation.play("walking")
+        if(this.keyboard.keyState[this.direction]) {
+            this.move()
+            this.animation.play("walking")
+        }
         else this.animation.play("idle")
     }
 }
