@@ -166,6 +166,7 @@ export default class Movable
                 if(this.angle <= this.tolerance || this.angle > Math.PI * 2 - this.tolerance)
                 {
                     this.setDirection()
+                    this.model.rotation.y = this.angle
                     return true
                 }
                 return false
@@ -174,6 +175,7 @@ export default class Movable
                 if(Math.PI - this.tolerance <= this.angle && this.angle < Math.PI + this.tolerance)
                 {
                     this.setDirection()
+                    this.model.rotation.y = this.angle
                     return true
                 }
                 return false
@@ -183,6 +185,7 @@ export default class Movable
                 if(1.5 * Math.PI - this.tolerance <= this.angle && this.angle < 1.5 * Math.PI + this.tolerance)
                 {
                     this.setDirection()
+                    this.model.rotation.y = this.angle
                     return true
                 }
                 return false
@@ -192,6 +195,7 @@ export default class Movable
                 if(0.5 * Math.PI - this.tolerance <= this.angle && this.angle < 0.5 * Math.PI + this.tolerance)
                 {
                     this.setDirection()
+                    this.model.rotation.y = this.angle
                     return true
                 }
                 return false
@@ -201,6 +205,7 @@ export default class Movable
                 if(0.25 * Math.PI - this.tolerance <= this.angle && this.angle < 0.25 * Math.PI + this.tolerance)
                 {
                     this.setDirection()
+                    this.model.rotation.y = this.angle
                     return true
                 }
                 return false
@@ -210,6 +215,7 @@ export default class Movable
                 if(1.25 * Math.PI - this.tolerance <= this.angle && this.angle < 1.25 * Math.PI + this.tolerance)
                 {
                     this.setDirection()
+                    this.model.rotation.y = this.angle
                     return true
                 }
                 return false
@@ -219,6 +225,7 @@ export default class Movable
                 if(1.75 * Math.PI - this.tolerance <= this.angle && this.angle < 1.75 * Math.PI + this.tolerance)
                 {
                     this.setDirection()
+                    this.model.rotation.y = this.angle
                     return true
                 }
                 return false
@@ -228,6 +235,7 @@ export default class Movable
                 if(0.75 * Math.PI - this.tolerance <= this.angle && this.angle < 0.75 * Math.PI + this.tolerance)
                 {
                     this.setDirection()
+                    this.model.rotation.y = this.angle
                     return true
                 }
                 return false
@@ -243,35 +251,35 @@ export default class Movable
         switch(this.direction)
         {
             case "up":
-                this.angle = 0
+                this.angle = Math.PI
                 break
                 
             case "down":
-                this.angle = Math.PI
+                this.angle = 0
                 break
     
             case "right":
-                this.angle = 1.5 * Math.PI
-                break
-    
-            case "left":
                 this.angle = 0.5 * Math.PI
                 break
     
+            case "left":
+                this.angle = 1.5 * Math.PI
+                break
+    
             case "up-left":
-                this.angle = 0.25 * Math.PI
+                this.angle = 1.25 * Math.PI
                 break
     
             case "down-right":
-                this.angle = 1.25 * Math.PI
+                this.angle = 0.25 * Math.PI
                 break
 
             case "up-right":
-                this.angle = 1.75 * Math.PI
+                this.angle = 0.75 * Math.PI
                 break
     
             case "down-left":
-                this.angle = 0.75 * Math.PI
+                this.angle = 1.75 * Math.PI
                 break
         }
     }

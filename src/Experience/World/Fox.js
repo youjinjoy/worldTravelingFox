@@ -33,7 +33,6 @@ export default class Fox extends Movable
         this.model = this.resource.scene
         this.model.scale.set(0.02, 0.02, 0.02)
         this.model.position.set(0,0,3)
-        this.model.rotation.y = Math.PI
         this.scene.add(this.model)
         
         this.model.traverse((child) =>
