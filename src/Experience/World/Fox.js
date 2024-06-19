@@ -24,7 +24,7 @@ export default class Fox extends Movable
         this.resource = this.resources.items.foxModel
 
         this.setModel()
-        this.getAngle()
+        this.setAngle()
         this.setAnimation()
     }
 
@@ -32,8 +32,10 @@ export default class Fox extends Movable
     {
         this.model = this.resource.scene
         this.model.scale.set(0.02, 0.02, 0.02)
+        this.model.position.set(0,0,3)
+        this.model.rotation.y = Math.PI
         this.scene.add(this.model)
-
+        
         this.model.traverse((child) =>
         {
             if(child instanceof THREE.Mesh)
@@ -94,7 +96,6 @@ export default class Fox extends Movable
         this.animation.mixer.update(this.time.delta * 0.001)
         if(this.keys.up || this.keys.down || this.keys.right || this.keys.left)
         {
-            console.log(this.direction)
             this.move()
             this.animation.play("walking")
         }
