@@ -26,7 +26,7 @@ export default class Keyboard extends EventEmitter
         {
             this.keyState[event.key] = false
             this.updateDirection()
-            this.trigger('keyup')
+            this.trigger('keyup', [this.direction])
         })
     }
 

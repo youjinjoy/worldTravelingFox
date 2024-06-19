@@ -6,8 +6,6 @@ export default class Fox
 {
     constructor()
     {   
-        const test = new Movable()
-        console.log(test)
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
@@ -24,6 +22,10 @@ export default class Fox
         this.resource = this.resources.items.foxModel
 
         this.setModel()
+
+        const test = new Movable(this.model)
+        console.log(test)
+
         this.setAnimation()
     }
 
