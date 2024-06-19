@@ -12,7 +12,7 @@ export default class Movable
         this.moving = false
 
         // Rotations
-        this.rotateSpeed = 0.05
+        this.rotateSpeed = 0.1
         this.isRotate = true
         this.angle = 0
         this.tolerance = 0.1
@@ -66,38 +66,45 @@ export default class Movable
         console.log(this.direction)
         console.log(this.angle)
 
-        this.rotate()
+
         switch (this.direction) {
             case "up":
                 this.model.position.z -= this.moveSpeed
+                this.rotate()
                 break
             case "down":
                 this.model.position.z += this.moveSpeed
+                this.rotate()
                 break
             case "left":
                 this.model.position.x -= this.moveSpeed
+                this.rotate()
                 break
             case "right":
                 this.model.position.x += this.moveSpeed
+                this.rotate()
                 break
             case "up-left":
                 this.model.position.z -= this.moveSpeed * Math.sqrt(0.5)
                 this.model.position.x -= this.moveSpeed * Math.sqrt(0.5)
+                this.rotate()
                 break
             case "up-right":
                 this.model.position.z -= this.moveSpeed * Math.sqrt(0.5)
                 this.model.position.x += this.moveSpeed * Math.sqrt(0.5)
+                this.rotate()
                 break
             case "down-left":
                 this.model.position.z += this.moveSpeed * Math.sqrt(0.5)
                 this.model.position.x -= this.moveSpeed * Math.sqrt(0.5)
+                this.rotate()
                 break
             case "down-right":
                 this.model.position.z += this.moveSpeed * Math.sqrt(0.5)
                 this.model.position.x += this.moveSpeed * Math.sqrt(0.5)
+                this.rotate()
                 break
         }
-        this.rotate()
 
     }
 
@@ -106,7 +113,12 @@ export default class Movable
      */
     setAngle()
     {
-        this.angle = Math.abs((this.model.rotation.y + Math.PI) % (2 * Math.PI))
+        let normalizedAngle = this.model.rotation.y % (2*Math.PI)
+        if (normalizedAngle<0)
+        {
+            normalizedAngle += 2*Math.PI
+        }
+        this.angle = (normalizedAngle + Math.PI) % (2 * Math.PI)
     }
     
     isClockwise()
