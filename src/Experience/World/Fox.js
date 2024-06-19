@@ -2,10 +2,12 @@ import * as THREE from 'three'
 import Experience from '../Experience.js'
 import Movable from './Movable/Movable.js'
 
-export default class Fox
+export default class Fox extends Movable
 {
     constructor()
     {   
+        super()
+
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
@@ -67,11 +69,13 @@ export default class Fox
             const newAction = this.animation.actions[name]
             const oldAction = this.animation.actions.current
 
-            newAction.reset()
-            newAction.play()
-            newAction.crossFadeFrom(oldAction, 1)
-
-            this.animation.actions.current = newAction
+            if(newAction !== oldAction)
+            {
+                newAction.reset();
+                newAction.play();
+                newAction.crossFadeFrom(oldAction, 0.1, true);
+                this.animation.actions.current = newAction;
+            }
         }
 
         // Debug
@@ -91,5 +95,8 @@ export default class Fox
     update()
     {
         this.animation.mixer.update(this.time.delta * 0.001)
+
+        if(this.moving) this.animation.play("walking")
+        else this.animation.play("idle")
     }
 }
