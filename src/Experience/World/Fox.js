@@ -24,7 +24,7 @@ export default class Fox extends Movable
         this.resource = this.resources.items.foxModel
 
         this.setModel()
-        console.log(this.model)
+        this.getAngle()
         this.setAnimation()
     }
 
@@ -92,7 +92,9 @@ export default class Fox extends Movable
     update()
     {
         this.animation.mixer.update(this.time.delta * 0.001)
-        if(this.keyboard.keyState[this.direction]) {
+        if(this.keys.up || this.keys.down || this.keys.right || this.keys.left)
+        {
+            console.log(this.direction)
             this.move()
             this.animation.play("walking")
         }
