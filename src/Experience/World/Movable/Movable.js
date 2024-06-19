@@ -294,6 +294,10 @@ export default class Movable
         else this.model.rotation.y += this.rotateSpeed
     }
 
-
+    destroy()
+    {
+        this.keyboard.off('keydown')
+        this.keyboard.off('keyup')
+    }
 
 }

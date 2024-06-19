@@ -7,6 +7,7 @@ import Camera from './Camera.js'
 import Renderer from './Renderer.js'
 import World from './World/World.js'
 import Resources from './Utils/Resources.js'
+import Keyboard from './Utils/Keyboard.js'
 
 import sources from './sources.js'
 
@@ -69,6 +70,10 @@ export default class Experience
     {
         this.sizes.off('resize')
         this.time.off('tick')
+
+        // Dispose keyboard event listeners
+        this.keyboard.destroy()
+        this.world.fox.destroy()
 
         // Traverse the whole scene
         this.scene.traverse((child) =>

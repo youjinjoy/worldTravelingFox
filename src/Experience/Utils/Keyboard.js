@@ -38,4 +38,10 @@ export default class Keyboard extends EventEmitter
         if (key === 'ArrowLeft' || key === 'a') this.direction = "left"
     }
 
+    destroy()
+    {
+        window.removeEventListener('keydown', this.onKeyDown)
+        window.removeEventListener('keyup', this.onKeyUp)
+    }
+
 }
