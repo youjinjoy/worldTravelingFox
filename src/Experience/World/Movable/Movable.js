@@ -1,10 +1,13 @@
+import Experience from '../../Experience'
 import Keyboard from '../../Utils/Keyboard'
 
 export default class Movable
 {
     constructor()
     {
-        // model
+        this.experience = new Experience()
+
+        // Model
         this.model = null
 
         // Movement
@@ -26,6 +29,9 @@ export default class Movable
             right: false
         }
         this.initKeyboard()
+
+        // Camera
+        this.camera = this.experience.camera
     }
     
     initKeyboard()
@@ -63,10 +69,6 @@ export default class Movable
     {
 
         // 유한 맵일 때는 제약 조건 추가
-        console.log(this.direction)
-        console.log(this.angle)
-
-
         switch (this.direction) {
             case "up":
                 this.model.position.z -= this.moveSpeed
@@ -105,6 +107,8 @@ export default class Movable
                 this.rotate()
                 break
         }
+
+        this.camera.updatePosition(this.model.position.x ,this.model.position.y, this.model.position.z)
 
     }
 
