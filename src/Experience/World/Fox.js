@@ -104,13 +104,13 @@ export default class Fox extends Movable
             else if (this.walking)
             {
                 this.animation.play("walking")
-                this.availableKeys.shift.classList.remove(this.keysActivateClass)
+                // this.availableKeys.shift.classList.remove(this.keysActivateClass)
             }
         }
         else
         {
             this.animation.play("idle")
-            this.availableKeys.shift.classList.remove(this.keysActivateClass)
+            // this.availableKeys.shift.classList.remove(this.keysActivateClass)
         }
         
         if (this.jumping)

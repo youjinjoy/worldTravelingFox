@@ -81,6 +81,13 @@ export default class Movable extends ActiveKeyVisualizer
         else if (this.keys.right) this.direction = "right"
         else this.direction = null
 
+        this.run()
+
+        if (this.keys.space && !this.jumping) this.jump()
+    }
+    
+    run()
+    {
         if (!this.jumping)
         {
             if (this.keys.shift)
@@ -94,37 +101,13 @@ export default class Movable extends ActiveKeyVisualizer
             }
             else
             {
-                this.running = false;
+                this.running = false
                 this.availableKeys.shift.classList.remove(this.keysActivateClass)
 
                 this.walking = true
                 this.moveSpeed = 0.1
                 this.jumpSpeed = 8
             }
-        }
-
-        if (this.keys.space && !this.jumping) this.jump()
-    }
-    
-    run()
-    {
-        if (!this.jumping)
-        {
-            if (this.running)
-            {
-                this.running = false
-                this.walking = true
-                this.moveSpeed = 0.1
-                this.jumpSpeed = 8
-            }
-            else
-            {
-                this.running = true
-                this.walking = false
-                this.moveSpeed = 0.15           
-                this.jumpSpeed = 10
-            }
-            this.toggleShift()
         }
     }
 
@@ -196,6 +179,7 @@ export default class Movable extends ActiveKeyVisualizer
         if (newY <= 0.01) {
             this.model.position.y = 0;
             this.jumping = false;
+            this.run()
         } else {
             this.model.position.y = newY;
         }

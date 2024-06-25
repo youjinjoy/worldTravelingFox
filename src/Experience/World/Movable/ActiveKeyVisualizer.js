@@ -35,6 +35,9 @@ export default class ActiveKeyVisualizer
             case 'right':
                 this.availableKeys.right.classList.add(this.keysActivateClass)
                 break
+            case 'shift':
+                this.availableKeys.shift.classList.add(this.keysActivateClass)
+                break
         }
     }
 
@@ -53,6 +56,9 @@ export default class ActiveKeyVisualizer
                 break
             case 'right':
                 this.availableKeys.right.classList.remove(this.keysActivateClass)
+                break
+            case 'shift':
+                this.availableKeys.shift.classList.remove(this.keysActivateClass)
                 break
         }
     }
