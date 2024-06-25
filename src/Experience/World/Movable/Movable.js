@@ -1,11 +1,14 @@
 import { thickness } from 'three/examples/jsm/nodes/core/PropertyNode'
 import Experience from '../../Experience'
 import Keyboard from '../../Utils/Keyboard'
+import ActiveKeyVisualizer from './ActiveKeyVisualizer'
 
-export default class Movable
+export default class Movable extends ActiveKeyVisualizer
 {
     constructor()
-    {
+    {   
+        super()
+
         this.experience = new Experience()
         this.gravity = this.experience.world.gravity
 
@@ -39,6 +42,7 @@ export default class Movable
             shift: false,
             space: false
         }
+        
         this.initKeyboard()
 
         // Camera
@@ -51,12 +55,14 @@ export default class Movable
         {   
             this.keys[direction] = true
             this.updateDirection()
+            this.activateDirection(direction)
         })
 
         this.keyboard.on('keyup', (direction) =>
         {
             this.keys[direction] = false
             this.updateDirection()
+            this.deactivateDirection(direction)
         })
     }
     
@@ -98,6 +104,7 @@ export default class Movable
                 this.moveSpeed = 0.15           
                 this.jumpSpeed = 10
             }
+            this.toggleShift()
         }
     }
 
@@ -156,7 +163,6 @@ export default class Movable
         }
 
         this.camera.updatePosition(this.model.position.x ,this.model.position.y, this.model.position.z)
-
     }
 
     updateJump()
@@ -173,6 +179,7 @@ export default class Movable
         } else {
             this.model.position.y = newY;
         }
+        this.monitorSpace(this.jumping)
     }
 
     /**

@@ -1,13 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Code structuring</title>
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lusitana:wght@400;700&family=Roboto+Condensed:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
     <canvas class="webgl"></canvas>
+    <!-- Keyboard Controls UI -->
+    <div id="keyboard-controls">
+      <div id="key-shift-space">
+        <div class="key-wrapper">
+          <p>run mode:</p>
+          <div class="key" id="key-shift">Shift</div>
+        </div>
+        <div class="key-wrapper">
+          <p>jump:</p>
+          <div class="key" id="key-space">Space</div>
+        </div>
+      </div>
+      <div id="key-direction">
+        <div class="key"></div>
+        <div class="key" id="key-up">up</div>
+        <div class="key"></div>
+        <div class="key" id="key-left">left</div>
+        <div class="key" id="key-down">down</div>
+        <div class="key" id="key-right">right</div>
+      </div>
+    </div>
+
     <script type="module" src="./script.js"></script>
-</body>
+  </body>
 </html>
