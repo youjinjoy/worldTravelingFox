@@ -96,7 +96,15 @@ export default class Fox extends Movable
         if(this.keys.up || this.keys.down || this.keys.right || this.keys.left)
         {
             this.move()
-            this.animation.play("walking")
+            if (this.running)
+            {
+                this.animation.play("running")
+                this.animation.actions["running"].timeScale = 1.5
+            }
+            else
+            {
+                this.animation.play("walking")
+            }
         }
         else this.animation.play("idle")
     }

@@ -14,6 +14,8 @@ export default class Movable
         this.moveSpeed = 0.1
         this.moving = false
 
+        this.running = false
+
         // Rotations
         this.rotateSpeed = 0.1
         this.isRotate = true
@@ -26,7 +28,9 @@ export default class Movable
             up: false,
             down: false,
             left: false,
-            right: false
+            right: false,
+            shift: false,
+            space: false
         }
         this.initKeyboard()
 
@@ -37,13 +41,13 @@ export default class Movable
     initKeyboard()
     {
         this.keyboard.on('keydown', (direction) =>
-        {
+        {   
             this.keys[direction] = true
             this.updateDirection()
         })
 
         this.keyboard.on('keyup', (direction) =>
-        {     
+        {
             this.keys[direction] = false
             this.updateDirection()
         })
@@ -63,13 +67,30 @@ export default class Movable
         else if (this.keys.left) this.direction = "left"
         else if (this.keys.right) this.direction = "right"
         else this.direction = null
+
+        if (this.keys.shift) this.run()
+    }
+    
+    run()
+    {
+        if (this.running)
+        {
+            this.running = false
+            this.moveSpeed = 0.1
+        }
+        else
+        {
+            this.running = true
+            this.moveSpeed = 0.2           
+        }
     }
 
     move()
     {
 
         // 유한 맵일 때는 제약 조건 추가
-        switch (this.direction) {
+        switch (this.direction)
+        {
             case "up":
                 this.model.position.z -= this.moveSpeed
                 this.rotate()
@@ -87,23 +108,23 @@ export default class Movable
                 this.rotate()
                 break
             case "up-left":
-                this.model.position.z -= this.moveSpeed * Math.sqrt(0.5)
-                this.model.position.x -= this.moveSpeed * Math.sqrt(0.5)
+                this.model.position.z -= this.moveSpeed / Math.sqrt(2)
+                this.model.position.x -= this.moveSpeed / Math.sqrt(2)
                 this.rotate()
                 break
             case "up-right":
-                this.model.position.z -= this.moveSpeed * Math.sqrt(0.5)
-                this.model.position.x += this.moveSpeed * Math.sqrt(0.5)
+                this.model.position.z -= this.moveSpeed / Math.sqrt(2)
+                this.model.position.x += this.moveSpeed / Math.sqrt(2)
                 this.rotate()
                 break
             case "down-left":
-                this.model.position.z += this.moveSpeed * Math.sqrt(0.5)
-                this.model.position.x -= this.moveSpeed * Math.sqrt(0.5)
+                this.model.position.z += this.moveSpeed / Math.sqrt(2)
+                this.model.position.x -= this.moveSpeed / Math.sqrt(2)
                 this.rotate()
                 break
             case "down-right":
-                this.model.position.z += this.moveSpeed * Math.sqrt(0.5)
-                this.model.position.x += this.moveSpeed * Math.sqrt(0.5)
+                this.model.position.z += this.moveSpeed / Math.sqrt(2)
+                this.model.position.x += this.moveSpeed / Math.sqrt(2)
                 this.rotate()
                 break
         }
