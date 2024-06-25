@@ -2,6 +2,9 @@
 {
     margin: 0;
     padding: 0;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
+    font-size: medium;
 }
 
 html,
@@ -16,4 +19,82 @@ body
     top: 0;
     left: 0;
     outline: none;
+}
+
+#threejs-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+#keyboard-controls {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+
+    display: flex;
+    gap: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#key-shift-space {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 10px;
+}
+
+#key-shift {
+    width: 90px
+}
+
+#key-space {
+    width: 120px
+
+}
+
+#key-direction {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 5px;
+}
+
+.key {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    background-color: rgba(255,255,255,0.5);
+    border: 3px solid rgba(255,255,255,0.5);
+    border-radius: 5px;
+    transition: background-color 0.1s;
+}
+
+#key-direction div:nth-child(1),
+#key-direction div:nth-child(3) {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.key.active {
+    background-color: rgb(255, 196, 59);
+}
+
+.key-wrapper {
+    display : flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+p {
+    color:white;
 }
