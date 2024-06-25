@@ -2,7 +2,6 @@ import { thickness } from 'three/examples/jsm/nodes/core/PropertyNode'
 import Experience from '../../Experience'
 import Keyboard from '../../Utils/Keyboard'
 import ActiveKeyVisualizer from './ActiveKeyVisualizer'
-import throttle from 'lodash/throttle';
 
 export default class Movable extends ActiveKeyVisualizer
 {
@@ -21,7 +20,7 @@ export default class Movable extends ActiveKeyVisualizer
         this.walking = true
 
         this.running = false
-        this.run = throttle(this.run.bind(this), 300);
+        this.run = this.throttle(this.run.bind(this), 300);
 
         this.jumpSpeed = 8
         this.jumpDuration = 0
@@ -50,6 +49,27 @@ export default class Movable extends ActiveKeyVisualizer
         // Camera
         this.camera = this.experience.camera
     }
+
+    throttle(func, limit) {
+        let lastFunc;
+        let lastRan;
+        return function(...args) {
+            const context = this;
+            if (!lastRan) {
+                func.apply(context, args);
+                lastRan = Date.now();
+            } else {
+                clearTimeout(lastFunc);
+                lastFunc = setTimeout(function() {
+                    if ((Date.now() - lastRan) >= limit) {
+                        func.apply(context, args);
+                        lastRan = Date.now();
+                    }
+                }, limit - (Date.now() - lastRan));
+            }
+        };
+    }
+    
     
     initKeyboard()
     {
