@@ -25,7 +25,7 @@ export default class Camera
 
     updatePosition(x,y,z)
     {
-        this.instance.position.set(x, y + 3, z + 12)
+        this.instance.position.set(x, 3, z + 12)
         // this.instance.lookAt(x,y+1,z)
     }
 

@@ -101,11 +101,16 @@ export default class Fox extends Movable
                 this.animation.play("running")
                 this.animation.actions["running"].timeScale = 1.5
             }
-            else
+            else if (this.walking)
             {
                 this.animation.play("walking")
             }
         }
         else this.animation.play("idle")
+        
+        if (this.jumping)
+        {
+            this.updateJump()
+        }
     }
 }

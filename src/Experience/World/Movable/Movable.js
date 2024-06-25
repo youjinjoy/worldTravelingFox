@@ -1,3 +1,4 @@
+import { thickness } from 'three/examples/jsm/nodes/core/PropertyNode'
 import Experience from '../../Experience'
 import Keyboard from '../../Utils/Keyboard'
 
@@ -6,15 +7,21 @@ export default class Movable
     constructor()
     {
         this.experience = new Experience()
+        this.gravity = this.experience.world.gravity
 
         // Model
         this.model = null
 
         // Movement
         this.moveSpeed = 0.1
-        this.moving = false
+        this.walking = true
 
         this.running = false
+
+        this.jumpSpeed = 8
+        this.jumpDuration = 0
+        this.jumping = false
+        this.jumpStartY = 0
 
         // Rotations
         this.rotateSpeed = 0.1
@@ -69,19 +76,38 @@ export default class Movable
         else this.direction = null
 
         if (this.keys.shift) this.run()
+
+        if (this.keys.space && !this.jumping) this.jump()
     }
     
     run()
     {
-        if (this.running)
+        if (!this.jumping)
         {
-            this.running = false
-            this.moveSpeed = 0.1
+            if (this.running)
+            {
+                this.running = false
+                this.walking = true
+                this.moveSpeed = 0.1
+                this.jumpSpeed = 8
+            }
+            else
+            {
+                this.running = true
+                this.walking = false
+                this.moveSpeed = 0.15           
+                this.jumpSpeed = 10
+            }
         }
-        else
+    }
+
+    jump()
+    {
+        if(!this.jumping)
         {
-            this.running = true
-            this.moveSpeed = 0.2           
+            this.jumping = true
+            this.jumpDuration = 0
+            this.jumpStartY = this.model.position.y
         }
     }
 
@@ -131,6 +157,22 @@ export default class Movable
 
         this.camera.updatePosition(this.model.position.x ,this.model.position.y, this.model.position.z)
 
+    }
+
+    updateJump()
+    {
+        const deltaTime = 0.020 ;
+        this.jumpDuration += deltaTime;
+
+        // 높이 계산
+        const newY = this.jumpStartY + (this.jumpSpeed * this.jumpDuration) + (0.5 * this.gravity * Math.pow(this.jumpDuration, 2));
+        
+        if (newY <= 0.01) {
+            this.model.position.y = 0;
+            this.jumping = false;
+        } else {
+            this.model.position.y = newY;
+        }
     }
 
     /**

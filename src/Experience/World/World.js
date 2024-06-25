@@ -10,6 +10,8 @@ export default class World
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
+        
+        this.gravity = -9.82*3
 
         // Wait for resources
         this.resources.on('ready', () =>
