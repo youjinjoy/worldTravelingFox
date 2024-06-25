@@ -2,6 +2,7 @@ import { thickness } from 'three/examples/jsm/nodes/core/PropertyNode'
 import Experience from '../../Experience'
 import Keyboard from '../../Utils/Keyboard'
 import ActiveKeyVisualizer from './ActiveKeyVisualizer'
+import throttle from 'lodash/throttle';
 
 export default class Movable extends ActiveKeyVisualizer
 {
@@ -20,6 +21,7 @@ export default class Movable extends ActiveKeyVisualizer
         this.walking = true
 
         this.running = false
+        this.run = throttle(this.run.bind(this), 300);
 
         this.jumpSpeed = 8
         this.jumpDuration = 0
