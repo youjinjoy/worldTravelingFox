@@ -20,7 +20,6 @@ export default class Movable extends ActiveKeyVisualizer
         this.walking = true
 
         this.running = false
-        this.run = this.throttle(this.run.bind(this), 300);
 
         this.jumpSpeed = 8
         this.jumpDuration = 0
@@ -49,27 +48,6 @@ export default class Movable extends ActiveKeyVisualizer
         // Camera
         this.camera = this.experience.camera
     }
-
-    throttle(func, limit) {
-        let lastFunc;
-        let lastRan;
-        return function(...args) {
-            const context = this;
-            if (!lastRan) {
-                func.apply(context, args);
-                lastRan = Date.now();
-            } else {
-                clearTimeout(lastFunc);
-                lastFunc = setTimeout(function() {
-                    if ((Date.now() - lastRan) >= limit) {
-                        func.apply(context, args);
-                        lastRan = Date.now();
-                    }
-                }, limit - (Date.now() - lastRan));
-            }
-        };
-    }
-    
     
     initKeyboard()
     {
@@ -103,7 +81,27 @@ export default class Movable extends ActiveKeyVisualizer
         else if (this.keys.right) this.direction = "right"
         else this.direction = null
 
-        if (this.keys.shift) this.run()
+        if (!this.jumping)
+        {
+            if (this.keys.shift)
+            {
+                this.running = true
+                this.availableKeys.shift.classList.add(this.keysActivateClass)
+
+                this.walking = false
+                this.moveSpeed = 0.15           
+                this.jumpSpeed = 10
+            }
+            else
+            {
+                this.running = false;
+                this.availableKeys.shift.classList.remove(this.keysActivateClass)
+
+                this.walking = true
+                this.moveSpeed = 0.1
+                this.jumpSpeed = 8
+            }
+        }
 
         if (this.keys.space && !this.jumping) this.jump()
     }
