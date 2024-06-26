@@ -17,38 +17,54 @@ export default class Floor
 
     setGeometry()
     {
-        this.geometry = new THREE.CircleGeometry(5, 64)
+        this.groundGeometry = new THREE.CircleGeometry(5, 64)
+
+        this.grassGeometry = new THREE.CircleGeometry(20, 64)
     }
 
     setTextures()
     {
-        this.textures = {}
+        this.groundTextures = {}
 
-        this.textures.color = this.resources.items.grassColorTexture
-        this.textures.color.colorSpace = THREE.SRGBColorSpace
-        this.textures.color.repeat.set(1.5, 1.5)
-        this.textures.color.wrapS = THREE.RepeatWrapping
-        this.textures.color.wrapT = THREE.RepeatWrapping
+        this.groundTextures.color = this.resources.items.groundColorTexture
+        this.groundTextures.color.colorSpace = THREE.SRGBColorSpace
+        this.groundTextures.color.repeat.set(1.5, 1.5)
+        this.groundTextures.color.wrapS = THREE.RepeatWrapping
+        this.groundTextures.color.wrapT = THREE.RepeatWrapping
 
-        this.textures.normal = this.resources.items.grassNormalTexture
-        this.textures.normal.repeat.set(1.5, 1.5)
-        this.textures.normal.wrapS = THREE.RepeatWrapping
-        this.textures.normal.wrapT = THREE.RepeatWrapping
+        this.groundTextures.normal = this.resources.items.groundNormalTexture
+        this.groundTextures.normal.repeat.set(1.5, 1.5)
+        this.groundTextures.normal.wrapS = THREE.RepeatWrapping
+        this.groundTextures.normal.wrapT = THREE.RepeatWrapping
     }
 
     setMaterial()
     {
-        this.material = new THREE.MeshStandardMaterial({
-            map: this.textures.color,
-            normalMap: this.textures.normal
+        this.groundMaterial = new THREE.MeshStandardMaterial({
+            map: this.groundTextures.color,
+            normalMap: this.groundTextures.normal
         })
+        
+        this.grasssMaterial = new THREE.MeshStandardMaterial({ color: "#007332"})
     }
 
     setMesh()
     {
-        this.mesh = new THREE.Mesh(this.geometry, this.material)
-        this.mesh.rotation.x = - Math.PI * 0.5
-        this.mesh.receiveShadow = true
-        this.scene.add(this.mesh)
+        // ground
+        this.groundMesh = new THREE.Mesh(this.groundGeometry, this.groundMaterial)
+        this.groundMesh.rotation.x = - Math.PI * 0.5
+        this.groundMesh.receiveShadow = true
+        this.scene.add(this.groundMesh)
+
+        // grass
+        this.grassMesh = new THREE.Mesh(this.grassGeometry, this.grasssMaterial)
+        this.grassMesh.rotation.x = - Math.PI * 0.5
+        this.grassMesh.receiveShadow = true
+        this.grassMesh.position.y -= 0.01
+        this.scene.add(this.grassMesh)
+
+
+
+
     }
 }
