@@ -22,6 +22,8 @@ export default class World
             this.sky = new Sky()
             this.fox = new Fox()
             this.environment = new Environment()
+            
+            this.fox.setLight(this.environment)
         })
     }
 
@@ -29,5 +31,15 @@ export default class World
     {
         if(this.fox)
             this.fox.update()
+        if(this.environment)
+        {
+            if (this.fox.model)
+            {
+                this.environment.updatePosition(this.fox.model)
+                console.log("?")
+            }
+            this.environment.update()
+        }
+
     }
 }

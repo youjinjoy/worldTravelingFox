@@ -65,6 +65,11 @@ export default class Movable extends ActiveKeyVisualizer
             this.deactivateDirection(direction)
         })
     }
+
+    setLight(light)
+    {
+        this.light =light
+    }
     
     /**
      * Movement

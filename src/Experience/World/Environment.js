@@ -9,6 +9,7 @@ export default class Environment
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.debug = this.experience.debug
+        this.target = this.experience.world.fox.model
         
         // Debug
         if(this.debug.active)
@@ -27,7 +28,8 @@ export default class Environment
         this.sunLight.shadow.camera.far = 15
         this.sunLight.shadow.mapSize.set(1024, 1024)
         this.sunLight.shadow.normalBias = 0.05
-        this.sunLight.position.set(3.5, 2, - 1.25)
+        this.sunLight.target = this.target
+        this.sunLight.position.set(3.5, 2, 1.25)
         this.scene.add(this.sunLight)
 
         // Directional Light Helper 추가
@@ -106,5 +108,15 @@ export default class Environment
                 .step(0.001)
                 .onChange(this.environmentMap.updateMaterials)
         }
+    }
+
+    updatePosition(target)
+    {
+        this.sunLight.position.set(target.position.x+3.5, target.position.y+2, target.position.z - 3 + 1.25)
+    }
+    
+    update()
+    {
+        this.sunLight.target.updateMatrixWorld()
     }
 }
