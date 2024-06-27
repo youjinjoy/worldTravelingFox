@@ -62,9 +62,5 @@ export default class Floor
         this.grassMesh.receiveShadow = true
         this.grassMesh.position.y -= 0.01
         this.scene.add(this.grassMesh)
-
-
-
-
     }
 }

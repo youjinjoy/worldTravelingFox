@@ -1,4 +1,6 @@
+import { Vector3 } from 'three'
 import Experience from '../Experience.js'
+import BouncingBall from './1/BouncingBall.js'
 import Environment from './Environment.js'
 import Floor from './Floor.js'
 import Fox from './Fox.js'
@@ -19,6 +21,7 @@ export default class World
         {
             // Setup
             this.floor = new Floor()
+            this.ball = new BouncingBall(0.2, new Vector3(-5,0,-5), 'red', this.floor.grassMesh)
             this.sky = new Sky()
             this.fox = new Fox()
             this.environment = new Environment()
@@ -31,15 +34,15 @@ export default class World
     {
         if(this.fox)
             this.fox.update()
+
         if(this.environment)
         {
-            if (this.fox.model)
-            {
-                this.environment.updatePosition(this.fox.model)
-                console.log("?")
-            }
+            if (this.fox.model) this.environment.updatePosition(this.fox.model)
             this.environment.update()
         }
+
+        if(this.ball)
+            this.ball.update()
 
     }
 }

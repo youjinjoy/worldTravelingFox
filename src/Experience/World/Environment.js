@@ -35,10 +35,12 @@ export default class Environment
         // Directional Light Helper 추가
         // const directionalLightHelper = new THREE.DirectionalLightHelper(this.sunLight, 5);
         // this.scene.add(directionalLightHelper);
+        // directionalLightHelper.visible = false
 
         // Shadow Camera Helper 추가
         // const shadowCameraHelper = new THREE.CameraHelper(this.sunLight.shadow.camera);
         // this.scene.add(shadowCameraHelper);
+        // shadowCameraHelper.visible= false
 
 
         // Debug
