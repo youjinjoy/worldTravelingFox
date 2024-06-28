@@ -8,6 +8,7 @@ export default class Ball
     constructor(radius = 1, position = { x: 0, y: 0, z: 0 }, color = 'red')
     {
         this.experience = new Experience()
+        this.resources = this.experience.resources
 
         this.radius = radius
         this.position = position
@@ -52,33 +53,31 @@ export default class Ball
     {
         this.setProperty()
         
-        const textureLoader = new THREE.TextureLoader()
-        this.bakedShadow = textureLoader.load('/textures/fakeShadows/bakedShadow_mirror.jpg',
-        (texture) =>
-        {
-            this.bakedShadow.colorSpace = THREE.SRGBColorSpace
-            this.plane = new THREE.Mesh(
-                new THREE.PlaneGeometry(this.radius*2, this.radius*2),
-                new THREE.MeshBasicMaterial({
-                    color: '#000',
-                    map: texture,
-                    transparent: true,
-                    alphaMap: texture,
-                    alphaTest: 0.15,
-                    depthWrite: false,
-                })
-            )
+        this.bakedShadow = {}
+        this.bakedShadow.color = '#000'
+        this.bakedShadow.map = this.resources.items.staticShadow
 
-            this.plane.scale.x = this.scaleCoefficient
-            this.plane.scale.y = this.scaleCoefficient
-            this.plane.rotation.x = - Math.PI * 0.5
-            this.plane.rotation.z = Math.PI * 0.5
-            this.plane.position.set(this.position.x, this.position.y + 0.02, this.position.z)
-            
-            this.group.add(this.plane)
-            
-        }, undefined,
-        (error) => {console.log(error)})
+        this.bakedShadow.colorSpace = THREE.SRGBColorSpace
+        this.plane = new THREE.Mesh(
+            new THREE.PlaneGeometry(this.radius*2, this.radius*2),
+            new THREE.MeshBasicMaterial(
+                {
+                color: this.bakedShadow.color,
+                map: this.bakedShadow.map,
+                transparent: true,
+                alphaMap: this.bakedShadow.map,
+                alphaTest: 0.5,
+                depthWrite: false,
+            })
+        )
+
+        this.plane.scale.x = this.scaleCoefficient
+        this.plane.scale.y = this.scaleCoefficient
+        this.plane.rotation.x = - Math.PI * 0.5
+        this.plane.rotation.z = Math.PI * 0.5
+        this.plane.position.set(this.position.x - 0.05, this.position.y, this.position.z + 0.05)
+
+        this.group.add(this.plane)
         
 
 

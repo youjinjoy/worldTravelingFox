@@ -15,22 +15,13 @@ export default class BouncingBall
 
         this.ball = new Ball(this.radius, this.position, this.color)
         this.bouncingBall = this.ball.mesh
-        this.setProperty()
         
         this.experience = new Experience()
-        // this.experience.scene.add(this.bouncingBall) ... world1 그룹에서 scene.add 해줌
         this.time = this.experience.time
+        this.resources = this.experience.resources
         
-        const textureLoader = new THREE.TextureLoader()
-        textureLoader.load('textures/fakeShadows/simpleShadow.jpg',
-        (texture) => {
-            this.simpleShadow = texture
-            this.setFakeShadow()       
-        })
-        , undefined,
-        (error) => {
-            console.log(error)
-        }
+        this.setProperty()
+        this.setFakeShadow()
 
     }
 
@@ -59,12 +50,17 @@ export default class BouncingBall
 
     setFakeShadow()
     {
+        this.simpleShadow = {}
+        this.simpleShadow.map = this.resources.items.dynamicShadow
+        this.simpleShadow.color = this.makeShadowColor(this.color)
+        this.simpleShadow.colorSpace = THREE.SRGBColorSpace
+        
         this.sphereShadow = new THREE.Mesh(
             new THREE.CircleGeometry(this.radius),
             new THREE.MeshBasicMaterial({
-                color: this.shadowColor,
+                color: this.simpleShadow.color,
                 transparent: true,
-                alphaMap: this.simpleShadow,
+                alphaMap: this.simpleShadow.map,
                 depthWrite: false
             })
         )
