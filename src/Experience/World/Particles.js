@@ -19,17 +19,25 @@ export default class Particles
     setParticlesGeometry()
     {
         this.particlesGeometry = new THREE.BufferGeometry()
-        this.count = 1000
+        this.count = 2000
 
         const positions = new Float32Array(this.count * 3);
 
-        for(let i = 0 ; i < this.count * 3 ; i++)
+        for(let i = 0 ; i < this.count * 3 ; i += 3)
         {
-            positions[i] = (Math.random() - 0.5) * this.radius * 10
+            positions[i] = (Math.random() - 0.5) * this.radius * 12
+            positions[i+1] = (Math.random() - 0.5) * this.radius * 12
+            positions[i+2] = (Math.random() - 0.5) * this.radius * 12
 
-            if (Math.abs(positions[i]) < this.radius)
+            const x = positions[i]
+            const y = positions[i+1]
+            const z = positions[i+2]
+
+            if (x * x + y * y + z * z <= this.radius * this.radius)
             {
-                positions[i] *= 2
+                positions[i] = positions[i] > 0 ? positions[i] + this.radius : positions[i] - this.radius
+                positions[i+1] = positions[i+1] > 0 ? positions[i+1] + this.radius : positions[i+1] - this.radius
+                positions[i+2] = positions[i+2] > 0 ? positions[i+2] + this.radius : positions[i+2] - this.radius
             }
         }
 
