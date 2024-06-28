@@ -1,23 +1,20 @@
 import * as THREE from 'three'
 import Ball from '../Ball'
 import Experience from '../../Experience'
-import World1ObjectManager from './World1ObjectManager'
 import tinycolor from "https://esm.sh/tinycolor2";
 
-export default class BouncingBall extends World1ObjectManager
+export default class BouncingBall
 {
     constructor(radius = 1, position = { x: 0, y: 0, z: 0 }, color = 'red', floor = null)
     {
-        super()
         
         this.radius = radius
         this.position = position
         this.color = color
         this.floor = floor
 
-        this.ball = new Ball(this.radius, this.position, this.color)
+        this.ball = new Ball(this.radius, this.position, this.color).mesh
         this.setProperty()
-        this.world1Group.add(this.ball)
         
         this.experience = new Experience()
         // this.experience.scene.add(this.ball) ... world1 그룹에서 scene.add 해줌
@@ -43,10 +40,12 @@ export default class BouncingBall extends World1ObjectManager
         this.bounce = 3
         this.bounceHeight = 3
 
+        this.speed = 1
+
         this.shadowColor = this.makeShadowColor(this.color)
         this.shadowAngleXCoefficient = -3
         this.shadowAngleZCoefficient = 1
-        this.shadowOpacityCoefficient = 0.7
+        this.shadowOpacityOffset = 0.7
     }
 
     makeShadowColor(color) {
@@ -78,7 +77,7 @@ export default class BouncingBall extends World1ObjectManager
 
     updateCircularMotion()
     {
-        const theta = this.start + this.time.elapsed * 0.001 * 2 * Math.PI / this.bounce
+        const theta = this.start + this.time.elapsed * 0.001 * 2 * this.speed * Math.PI / this.bounce
         this.ball.position.x = this.position.x + Math.cos(theta) * this.orbitRadius
         this.ball.position.z = this.position.z + Math.sin(theta) * this.orbitRadius
         this.ball.position.y = this.radius + Math.abs(Math.sin(this.start + this.time.elapsed * 0.003)) * this.bounceHeight
@@ -88,7 +87,7 @@ export default class BouncingBall extends World1ObjectManager
         {
             this.sphereShadow.position.x = this.ball.position.x + this.shadowAngleXCoefficient*this.radius*this.ball.position.y
             this.sphereShadow.position.z = this.ball.position.z + this.shadowAngleZCoefficient*this.radius*this.ball.position.y
-            this.sphereShadow.material.opacity = (1 - this.ball.position.y/(this.bounceHeight+this.radius))+this.shadowOpacityCoefficient
+            this.sphereShadow.material.opacity = (1 - this.ball.position.y/(this.bounceHeight+this.radius)) + this.shadowOpacityOffset
         }
     }
 
@@ -101,7 +100,7 @@ export default class BouncingBall extends World1ObjectManager
         {
             this.sphereShadow.position.x = this.ball.position.x + this.shadowAngleXCoefficient*this.radius*this.ball.position.y
             this.sphereShadow.position.z = this.ball.position.z + this.shadowAngleZCoefficient*this.radius*this.ball.position.y
-            this.sphereShadow.material.opacity = (1 - this.ball.position.y/(this.bounceHeight+this.radius))+this.shadowOpacityCoefficient
+            this.sphereShadow.material.opacity = (1 - this.ball.position.y/(this.bounceHeight+this.radius))+this.shadowOpacityOffset
         }
     }
 }
