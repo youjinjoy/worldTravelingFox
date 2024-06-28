@@ -21,7 +21,12 @@ export default class World
         {
             // Setup
             this.floor = new Floor()
-            this.ball = new BouncingBall(0.2, new Vector3(-5,0,-5), 'red', this.floor.grassMesh)
+            this.bouncingRedBall = new BouncingBall(0.2, new Vector3(-5,0,-5), 'red', this.floor.grassMesh)
+            this.bouncingBlueBall = new BouncingBall(0.2, new Vector3(-5,0,-5), 'blue', this.floor.grassMesh)
+            this.bouncingBlueBall.bounceHeight = 2
+            this.bouncingBlueBall.bounce = 4
+            this.bouncingBlueBall.start = Math.PI * 0.2
+
             this.sky = new Sky()
             this.fox = new Fox()
             this.environment = new Environment()
@@ -33,7 +38,9 @@ export default class World
     update()
     {
         if(this.fox)
+        {
             this.fox.update()
+        }
 
         if(this.environment)
         {
@@ -41,8 +48,11 @@ export default class World
             this.environment.update()
         }
 
-        if(this.ball)
-            this.ball.update()
+        if(this.bouncingRedBall && this.bouncingBlueBall)
+        {
+            this.bouncingRedBall.updateCircularMotion()
+            this.bouncingBlueBall.updateVerticalMotion()
+        }
 
     }
 }

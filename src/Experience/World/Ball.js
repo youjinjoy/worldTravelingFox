@@ -15,7 +15,6 @@ export default class Ball
         // this.setTextures()
         this.setMaterial()
         this.setMesh()
-
         this.setPosition(position)
         
         return this.mesh

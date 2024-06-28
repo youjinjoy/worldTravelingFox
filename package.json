@@ -14,6 +14,7 @@
   "dependencies": {
     "lil-gui": "^0.19.2",
     "lodash": "^4.17.21",
-    "three": "^0.164.1"
+    "three": "^0.164.1",
+    "tinycolor2": "^1.6.0"
   }
 }
