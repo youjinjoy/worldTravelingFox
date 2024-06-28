@@ -3,12 +3,10 @@ import * as THREE from 'three'
 import Experience from "../Experience"
 import World1ObjectManager from './1/World1ObjectManager'
 
-export default class Ball extends World1ObjectManager
+export default class Ball
 {
     constructor(radius = 1, position = { x: 0, y: 0, z: 0 }, color = 'red')
     {
-        super()
-
         this.experience = new Experience()
 
         this.radius = radius
@@ -20,8 +18,9 @@ export default class Ball extends World1ObjectManager
         this.setMaterial()
         this.setMesh()
         this.setPosition(position)
-        
-        this.world1Group.add(this.mesh)
+
+        this.group = new World1ObjectManager('world1')
+        this.group.add(this.mesh)
     }
 
     setGeometry()
@@ -58,9 +57,6 @@ export default class Ball extends World1ObjectManager
         (texture) =>
         {
             this.bakedShadow.colorSpace = THREE.SRGBColorSpace
-
-            console.log(texture)
-
             this.plane = new THREE.Mesh(
                 new THREE.PlaneGeometry(this.radius*2, this.radius*2),
                 new THREE.MeshBasicMaterial({
@@ -78,10 +74,9 @@ export default class Ball extends World1ObjectManager
             this.plane.rotation.x = - Math.PI * 0.5
             this.plane.rotation.z = Math.PI * 0.5
             this.plane.position.set(this.position.x, this.position.y + 0.02, this.position.z)
-            console.log(this.plane)
             
-            this.world1Group.add(this.plane)
-            // console.log(this.world1Group)
+            this.group.add(this.plane)
+            
         }, undefined,
         (error) => {console.log(error)})
         

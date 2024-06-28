@@ -13,11 +13,12 @@ export default class BouncingBall
         this.color = color
         this.floor = floor
 
-        this.ball = new Ball(this.radius, this.position, this.color).mesh
+        this.ball = new Ball(this.radius, this.position, this.color)
+        this.bouncingBall = this.ball.mesh
         this.setProperty()
         
         this.experience = new Experience()
-        // this.experience.scene.add(this.ball) ... world1 그룹에서 scene.add 해줌
+        // this.experience.scene.add(this.bouncingBall) ... world1 그룹에서 scene.add 해줌
         this.time = this.experience.time
         
         const textureLoader = new THREE.TextureLoader()
@@ -72,35 +73,35 @@ export default class BouncingBall
         this.sphereShadow.scale.x = - this.shadowAngleXCoefficient * 0.5
         this.sphereShadow.scale.z = this.shadowAngleZCoefficient * 0.5
         
-        this.experience.scene.add(this.sphereShadow)
+        this.ball.group.add(this.sphereShadow)
     }
 
     updateCircularMotion()
     {
         const theta = this.start + this.time.elapsed * 0.001 * 2 * this.speed * Math.PI / this.bounce
-        this.ball.position.x = this.position.x + Math.cos(theta) * this.orbitRadius
-        this.ball.position.z = this.position.z + Math.sin(theta) * this.orbitRadius
-        this.ball.position.y = this.radius + Math.abs(Math.sin(this.start + this.time.elapsed * 0.003)) * this.bounceHeight
+        this.bouncingBall.position.x = this.position.x + Math.cos(theta) * this.orbitRadius
+        this.bouncingBall.position.z = this.position.z + Math.sin(theta) * this.orbitRadius
+        this.bouncingBall.position.y = this.radius + Math.abs(Math.sin(this.start + this.time.elapsed * 0.003)) * this.bounceHeight
 
         // Update the shadow
         if (this.sphereShadow)
         {
-            this.sphereShadow.position.x = this.ball.position.x + this.shadowAngleXCoefficient*this.radius*this.ball.position.y
-            this.sphereShadow.position.z = this.ball.position.z + this.shadowAngleZCoefficient*this.radius*this.ball.position.y
-            this.sphereShadow.material.opacity = (1 - this.ball.position.y/(this.bounceHeight+this.radius)) + this.shadowOpacityOffset
+            this.sphereShadow.position.x = this.bouncingBall.position.x + this.shadowAngleXCoefficient*this.radius*this.bouncingBall.position.y
+            this.sphereShadow.position.z = this.bouncingBall.position.z + this.shadowAngleZCoefficient*this.radius*this.bouncingBall.position.y
+            this.sphereShadow.material.opacity = (1 - this.bouncingBall.position.y/(this.bounceHeight+this.radius)) + this.shadowOpacityOffset
         }
     }
 
     updateVerticalMotion()
     {
-        this.ball.position.y = this.radius + Math.abs(Math.sin(this.start + this.time.elapsed * 0.003)) * this.bounceHeight
+        this.bouncingBall.position.y = this.radius + Math.abs(Math.sin(this.start + this.time.elapsed * 0.003)) * this.bounceHeight
         
         // Update the shadow
         if (this.sphereShadow)
         {
-            this.sphereShadow.position.x = this.ball.position.x + this.shadowAngleXCoefficient*this.radius*this.ball.position.y
-            this.sphereShadow.position.z = this.ball.position.z + this.shadowAngleZCoefficient*this.radius*this.ball.position.y
-            this.sphereShadow.material.opacity = (1 - this.ball.position.y/(this.bounceHeight+this.radius))+this.shadowOpacityOffset
+            this.sphereShadow.position.x = this.bouncingBall.position.x + this.shadowAngleXCoefficient*this.radius*this.bouncingBall.position.y
+            this.sphereShadow.position.z = this.bouncingBall.position.z + this.shadowAngleZCoefficient*this.radius*this.bouncingBall.position.y
+            this.sphereShadow.material.opacity = (1 - this.bouncingBall.position.y/(this.bounceHeight+this.radius))+this.shadowOpacityOffset
         }
     }
 }

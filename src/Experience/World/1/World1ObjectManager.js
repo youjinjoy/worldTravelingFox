@@ -1,10 +1,10 @@
 import Group from "../../Utils/Group";
 
-export default class World1ObjectManager
+export default class World1ObjectManager extends Group
 {
-    constructor()
+    constructor(name)
     {
-        this.world1Group = new Group('world1')
+        super(name)
     }
 
     addToGroup(model)

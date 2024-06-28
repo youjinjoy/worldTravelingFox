@@ -12,7 +12,7 @@ export default class Group
         {
             return groupNames[name]
         }
-
+        
         this.group = new THREE.Group()
         groupNames[name] = this.group
 
