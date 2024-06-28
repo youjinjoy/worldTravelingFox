@@ -4,10 +4,11 @@ import Experience from '../Experience'
 export default class Sky
 {
     // 구 모양의 돔 내부를 하늘처럼 보이게 하기
-    constructor()
+    constructor(radius)
     {
         this.experience = new Experience()
         this.scene = this.experience.scene
+        this.radius = radius
         
         this.setGeometry()
         // this.setTextures()
@@ -17,7 +18,7 @@ export default class Sky
 
     setGeometry()
     {
-        this.geometry = new THREE.SphereGeometry(20,64)
+        this.geometry = new THREE.SphereGeometry(this.radius)
     }
 
     setMaterial()

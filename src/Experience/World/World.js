@@ -6,6 +6,7 @@ import Floor from './Floor.js'
 import Fox from './Fox.js'
 import Sky from './Sky.js'
 import Ball from './Ball.js'
+import Particles from './Particles.js'
 
 export default class World
 {
@@ -17,11 +18,14 @@ export default class World
         
         this.gravity = -9.82*3
 
+        this.worldRadius = 12
+
         // Wait for resources
         this.resources.on('ready', () =>
         {
             // Setup
-            this.floor = new Floor()
+            this.floor = new Floor(this.worldRadius)
+            this.sky = new Sky(this.worldRadius)
 
             this.bouncingRedBall = new BouncingBall(0.2, new Vector3(-5,0,-5), 'red', this.floor.grassMesh)
             this.bouncingBlueBall = new BouncingBall(0.2, new Vector3(-5,0,-5), 'blue', this.floor.grassMesh)
@@ -39,11 +43,12 @@ export default class World
             this.limeBall.setBakedShadow()
 
 
-            this.sky = new Sky()
             this.fox = new Fox()
             this.environment = new Environment()
             
             this.fox.setLight(this.environment)
+
+            this.particles = new Particles(this.worldRadius)
         })
     }
 

@@ -74,7 +74,7 @@ export default class Ball
         this.plane.scale.x = this.scaleCoefficient
         this.plane.scale.y = this.scaleCoefficient
         this.plane.rotation.x = - Math.PI * 0.5
-        this.plane.rotation.z = Math.PI * 0.5
+        this.plane.rotation.z = Math.PI * 0.3
         this.plane.position.set(this.position.x - 0.05, this.position.y, this.position.z + 0.05)
 
         this.group.add(this.plane)

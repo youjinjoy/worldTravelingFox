@@ -3,11 +3,12 @@ import Experience from '../Experience.js'
 
 export default class Floor
 {
-    constructor()
+    constructor(radius)
     {
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
+        this.radius = radius
 
         this.setGeometry()
         this.setTextures()
@@ -19,7 +20,7 @@ export default class Floor
     {
         this.groundGeometry = new THREE.CircleGeometry(5, 64)
 
-        this.grassGeometry = new THREE.CircleGeometry(20, 64)
+        this.grassGeometry = new THREE.CircleGeometry(this.radius, 64)
     }
 
     setTextures()
