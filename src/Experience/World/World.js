@@ -7,6 +7,7 @@ import Fox from './Fox.js'
 import Sky from './Sky.js'
 import Ball from './Ball.js'
 import Particles from './Particles.js'
+import Galaxy from './Galaxy.js'
 
 export default class World
 {
@@ -49,6 +50,7 @@ export default class World
             this.fox.setLight(this.environment)
 
             this.particles = new Particles(this.worldRadius)
+            this.galaxy = new Galaxy()
         })
     }
 
@@ -70,6 +72,11 @@ export default class World
             this.bouncingRedBall.updateCircularMotion()
             this.bouncingBlueBall.updateVerticalMotion()
             this.bouncingOrangeBall.updateCircularMotion()
+        }
+        
+        if(this.galaxy)
+        {
+            this.galaxy.update()
         }
 
     }

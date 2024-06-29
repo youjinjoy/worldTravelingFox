@@ -10,16 +10,16 @@ export default class Particles
 
         this.radius = radius
 
-        this.particlesGeometry = new THREE.BufferGeometry()
-        this.count = 2000
-
-        this.setParticlesGeometry()
         this.setMaterial()
+        this.setParticlesGeometry()
         this.setMesh()
     }
 
     setParticlesGeometry()
     {
+        this.count = 2000
+        this.particlesGeometry = new THREE.BufferGeometry()
+
         const positions = new Float32Array(this.count * 3);
 
         for(let i = 0 ; i < this.count * 3 ; i += 3)
@@ -46,11 +46,6 @@ export default class Particles
     setSphereGeometry()
     {
         this.sphereGeometry = new THREE.SphereGeometry(5,64)
-    }
-
-    generateGalaxy()
-    {
-
     }
 
     setMaterial()
