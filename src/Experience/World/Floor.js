@@ -59,7 +59,7 @@ export default class Floor
 
         this.lineMaterial = new THREE.LineBasicMaterial(
             {
-                opacity : 0.2,
+                opacity : 0.5,
                 transparent : true
             }
         )
@@ -83,9 +83,9 @@ export default class Floor
         this.scene.add(this.grassMesh)
 
         // underground
-        this.undergroundMesh = new THREE.LineSegments( this.wireframeGeometry, this.lineMaterial )
-        this.undergroundMesh.position.y -= 0.02
-        this.scene.add(this.undergroundMesh)
+        // this.undergroundMesh = new THREE.LineSegments( this.wireframeGeometry, this.lineMaterial )
+        // this.undergroundMesh.position.y -= 0.02
+        // this.scene.add(this.undergroundMesh)
         
         // underground grass
         this.undergrassMesh = new THREE.Mesh( this.undergrassGeometry, this.undergrassMaterial )

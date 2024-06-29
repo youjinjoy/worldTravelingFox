@@ -10,24 +10,23 @@ export default class Particles
 
         this.radius = radius
 
+        this.particlesGeometry = new THREE.BufferGeometry()
+        this.count = 2000
+
         this.setParticlesGeometry()
-        this.setGeometry()
         this.setMaterial()
         this.setMesh()
     }
 
     setParticlesGeometry()
     {
-        this.particlesGeometry = new THREE.BufferGeometry()
-        this.count = 2000
-
         const positions = new Float32Array(this.count * 3);
 
         for(let i = 0 ; i < this.count * 3 ; i += 3)
         {
-            positions[i] = (Math.random() - 0.5) * this.radius * 12
-            positions[i+1] = (Math.random() - 0.5) * this.radius * 12
-            positions[i+2] = (Math.random() - 0.5) * this.radius * 12
+            positions[i] = (Math.random() - 0.5) * this.radius * 8
+            positions[i+1] = (Math.random() - 0.5) * this.radius * 8
+            positions[i+2] = (Math.random() - 0.5) * this.radius * 8
 
             const x = positions[i]
             const y = positions[i+1]
@@ -44,11 +43,14 @@ export default class Particles
         this.particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3)) 
     }
 
-    setGeometry()
+    setSphereGeometry()
+    {
+        this.sphereGeometry = new THREE.SphereGeometry(5,64)
+    }
+
+    generateGalaxy()
     {
 
-
-        this.geometry = new THREE.SphereGeometry(5,64)
     }
 
     setMaterial()
