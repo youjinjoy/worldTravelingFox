@@ -18,7 +18,7 @@ export default class World
         
         this.gravity = -9.82*3
 
-        this.worldRadius = 12
+        this.worldRadius = 20
 
         // Wait for resources
         this.resources.on('ready', () =>

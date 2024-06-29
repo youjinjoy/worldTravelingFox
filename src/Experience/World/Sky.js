@@ -18,12 +18,18 @@ export default class Sky
 
     setGeometry()
     {
-        this.geometry = new THREE.SphereGeometry(this.radius)
+        this.geometry = new THREE.SphereGeometry(this.radius+0.01,32,64)
     }
 
     setMaterial()
     {
-        this.material = new THREE.MeshBasicMaterial({color:"#4e8ade",side: THREE.BackSide})
+        this.material = new THREE.MeshPhongMaterial(
+            {
+                color: "#4e8ade",
+                side: THREE.DoubleSide,
+                opacity: 0.2,
+                transparent: true
+            })
     }
 
     setMesh()
