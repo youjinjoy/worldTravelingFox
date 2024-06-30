@@ -18,9 +18,10 @@ export default class Floor
 
     setGeometry()
     {
-        this.groundGeometry = new THREE.CircleGeometry(5, 64)
+        this.groundGeometry = new THREE.CircleGeometry(this.radius, 64)
 
-        this.grassGeometry = new THREE.CircleGeometry(this.radius - 0.1, 128)
+        this.grassGeometry = new THREE.PlaneGeometry(this.radius*2, this.radius*2, 256, 256)
+        // this.grassGeometry = new THREE.CircleGeometry(this.radius, 256)
 
         this.undergroundGeometry = new THREE.SphereGeometry(this.radius - 0.11, 32, 16, undefined, undefined,  0.5 * Math.PI, 0.5 * Math.PI)
         this.wireframeGeometry = new THREE.WireframeGeometry(this.undergroundGeometry)
@@ -34,24 +35,65 @@ export default class Floor
 
         this.groundTextures.color = this.resources.items.groundColorTexture
         this.groundTextures.color.colorSpace = THREE.SRGBColorSpace
-        this.groundTextures.color.repeat.set(1.5, 1.5)
+        this.groundTextures.color.repeat.set(10, 10)
         this.groundTextures.color.wrapS = THREE.RepeatWrapping
         this.groundTextures.color.wrapT = THREE.RepeatWrapping
 
         this.groundTextures.normal = this.resources.items.groundNormalTexture
-        this.groundTextures.normal.repeat.set(1.5, 1.5)
+        this.groundTextures.normal.repeat.set(10, 10)
         this.groundTextures.normal.wrapS = THREE.RepeatWrapping
         this.groundTextures.normal.wrapT = THREE.RepeatWrapping
+
+        // grass
+        this.grassTextures = {}
+
+        this.grassTextures.color = this.resources.items.grassColorTexture
+        this.grassTextures.color.colorSpace = THREE.SRGBColorSpace
+        this.setTextureProperties(this.grassTextures.color, 10, 10)
+
+        this.grassTextures.displacement = this.resources.items.grassDisplacementTexture
+        this.setTextureProperties(this.grassTextures.displacement, 10, 10)
+
+        this.grassTextures.normal = this.resources.items.grassNormalTexture
+        this.setTextureProperties(this.grassTextures.normal, 10, 10)
+
+        this.grassTextures.occlusion = this.resources.items.grassOcclusionTexture
+        this.setTextureProperties(this.grassTextures.occlusion, 10, 10)
+
+        this.grassTextures.roughness = this.resources.items.grassRoughnessTexture
+        this.setTextureProperties(this.grassTextures.roughness, 10, 10)
+
+        this.grassTextures.alpha = this.resources.items.grassAlphaTexture
+        this.setTextureProperties(this.grassTextures.roughness, 10, 10)
+    }
+
+    setTextureProperties(texture, repeatX, repeatY)
+    {
+        texture.repeat.set(repeatX, repeatY)
+        texture.wrapS = THREE.RepeatWrapping
+        texture.wrapT = THREE.RepeatWrapping
     }
 
     setMaterial()
     {
         this.groundMaterial = new THREE.MeshStandardMaterial({
             map: this.groundTextures.color,
-            normalMap: this.groundTextures.normal
+            normalMap: this.groundTextures.normal,
         })
         
-        this.grassMaterial = new THREE.MeshStandardMaterial({ color: "#007332"})
+        this.grassMaterial = new THREE.MeshStandardMaterial({
+            map: this.grassTextures.color,
+            normalMap: this.grassTextures.normal,
+            displacementMap: this.grassTextures.displacement,
+            displacementScale: 0.2,
+            // displacementBias: -0.1,
+            aoMap: this.grassTextures.displacement,
+            roughnessMap: this.grassTextures.roughness,
+            alphaMap: this.grassTextures.alpha,
+            transparent: true,
+            depthWrite: false
+        })
+        
 
         this.undergroundMaterial = new THREE.MeshStandardMaterial(
             { wireframe: true}
@@ -64,7 +106,14 @@ export default class Floor
             }
         )
 
-        this.undergrassMaterial = new THREE.MeshBasicMaterial({ color: "#164a2d", opacity: 0.8})
+        this.undergrassMaterial = new THREE.MeshBasicMaterial({
+            map: this.grassTextures.color,
+            normalMap: this.grassTextures.normal,
+            displacementMap: this.grassTextures.displacement,
+            displacementScale: 2,
+            aoMap: this.grassTextures.displacement,
+            roughnessMap: this.grassTextures.roughness
+        })
     }
 
     setMesh()
@@ -72,6 +121,7 @@ export default class Floor
         // ground
         this.groundMesh = new THREE.Mesh(this.groundGeometry, this.groundMaterial)
         this.groundMesh.rotation.x = - Math.PI * 0.5
+        this.groundMesh.position.y = - 0.01
         this.groundMesh.receiveShadow = true
         this.scene.add(this.groundMesh)
 

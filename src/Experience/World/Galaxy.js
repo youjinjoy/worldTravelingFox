@@ -2,6 +2,7 @@ import * as THREE from "three"
 import Experience from "../Experience"
 
 let num = 1
+
 export default class Galaxy
 {
     constructor({        

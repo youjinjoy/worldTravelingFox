@@ -36,5 +36,35 @@ export default [
         name: 'staticShadow',
         type: 'texture',
         path: 'textures/fakeShadows/bakedShadow_mirror.jpg'
+    },
+    {
+        name: 'grassColorTexture',
+        type: 'texture',
+        path: 'textures/grass/color.jpg'
+    },
+    {
+        name: 'grassDisplacementTexture',
+        type: 'texture',
+        path: 'textures/grass/displacement.png'
+    },
+    {
+        name: 'grassNormalTexture',
+        type: 'texture',
+        path: 'textures/grass/normal.jpg'
+    },
+    {
+        name: 'grassOcclusionTexture',
+        type: 'texture',
+        path: 'textures/grass/occlusion.jpg'
+    },
+    {
+        name: 'grassRoughnessTexture',
+        type: 'texture',
+        path: 'textures/grass/roughness.jpg'
+    },
+    {
+        name: 'grassAlphaTexture',
+        type: 'texture',
+        path: 'textures/grass/alpha.png'
     }
 ]
