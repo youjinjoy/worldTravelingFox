@@ -50,7 +50,15 @@ export default class World
             this.fox.setLight(this.environment)
 
             this.particles = new Particles(this.worldRadius)
-            this.galaxy = new Galaxy()
+            this.galaxy1 = new Galaxy( {position : { x: 15, y: 2, z: -40}, colors: {inside: 0x2eff89, outside: 0x335099}})
+            this.galaxy2 = new Galaxy({
+                position: { x: -30, y: 6, z: -70 },
+                rotation: { x: 0.2513, y: 1.2566, z: 0 },
+                appearance: { size: 0.3, count: 2000, radius: 7.7, branches: 3, spin: -2.591 },
+                randomness: { value: 0.744, power: 5.426 },
+                colors: { inside: 0x76321e, outside: 0x335099 },
+                animation: { speed: 0.0002, direction: -1 }
+            })
         })
     }
 
@@ -74,9 +82,10 @@ export default class World
             this.bouncingOrangeBall.updateCircularMotion()
         }
         
-        if(this.galaxy)
+        if(this.galaxy1 && this.galaxy2)
         {
-            this.galaxy.update()
+            this.galaxy1.update()
+            this.galaxy2.update()
         }
 
     }

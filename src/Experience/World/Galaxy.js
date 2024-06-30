@@ -1,31 +1,49 @@
 import * as THREE from "three"
 import Experience from "../Experience"
 
+let num = 1
 export default class Galaxy
 {
-    constructor()
+    constructor({        
+        id = num++,
+        position = { x: 15, y: 2, z: -40},
+        rotation = { x: Math.PI * 0.1, y: Math.PI * 0.4, z: 0},
+        appearance = { size: 0.1, count: 2000, radius: 3, branches: 4, spin: 1 },
+        randomness = { value: 0.2, power: 3 },
+        colors = { inside: 0xff6030, outside: 0x1b3984 },
+        animation = { speed: 0.0003, direction: 1 }
+    } = {})
     {
 
-        this.posX = 15
-        this.posY = 2
-        this.posZ = -40
+        this.id = id
+        // Position
+        this.posX = position.x
+        this.posY = position.y
+        this.posZ = position.z
 
-        this.rotX = Math.PI * 0.1
-        this.rotY = Math.PI * 0.4
-        this.rotZ = 0
+        // Rotation
+        this.rotX = rotation.x
+        this.rotY = rotation.y
+        this.rotZ = rotation.z
 
-        this.size = 0.2
-        this.count = 2000
-        this.radius = 3
-        this.branches = 4
-        this.spin = 1
-        this.randomness = 0.2
-        this.randomnessPower = 3
+        // Appearance
+        this.size = appearance.size
+        this.count = appearance.count
+        this.radius = appearance.radius
+        this.branches = appearance.branches
+        this.spin = appearance.spin
 
-        this.insideColor = 0xff6030
-        this.outsideColor = 0x1b3984
+        // Randomness
+        this.randomness = randomness.value
+        this.randomnessPower = randomness.power
 
-        this.speed = 0.0003
+        // Colors
+        this.insideColor = colors.inside
+        this.outsideColor = colors.outside
+
+        // Animation
+        this.speed = animation.speed
+        this.direction = animation.direction
 
         this.experience = new Experience()
         this.scene = this.experience.scene
@@ -34,10 +52,11 @@ export default class Galaxy
 
         if(this.debug.active)
         {
-            this.debugFolder = this.debug.ui.addFolder('galaxy')
+            this.debugFolder = this.debug.ui.addFolder(`galaxy${this.id}`)
             this.positionFolder = this.debugFolder.addFolder('position')
             this.rotationFolder = this.debugFolder.addFolder('rotation')
-            this.propertiesFolder = this.debugFolder.addFolder('properties')
+            this.apperanceFolder = this.debugFolder.addFolder('apperance')
+            this.randomnessFolder = this.debugFolder.addFolder('randomness')
             this.colorsFolder = this.debugFolder.addFolder('colors')
             this.animationsFolder = this.debugFolder.addFolder('animations')
 
@@ -68,37 +87,37 @@ export default class Galaxy
             })
 
 
-            // galaxy properties
-            this.propertiesFolder.add(this, 'size').min(0.01).max(1).step(0.01).onChange(() => {
+            // galaxy apperance
+            this.apperanceFolder.add(this, 'size').min(0.01).max(1).step(0.01).onChange(() => {
                 this.material.size = this.size
             })
 
-            this.propertiesFolder.add(this, 'count').min(100).max(5000).step(100).onChange(() => {
+            this.apperanceFolder.add(this, 'count').min(100).max(5000).step(100).onChange(() => {
                 this.setGalaxyGeometry()
                 this.setMesh()
             })
 
-            this.propertiesFolder.add(this, 'radius').min(0.01).max(20).step(0.01).onChange(() => {
+            this.apperanceFolder.add(this, 'radius').min(0.01).max(20).step(0.01).onChange(() => {
                 this.setGalaxyGeometry()
                 this.setMesh()
             })
 
-            this.propertiesFolder.add(this, 'branches').min(2).max(20).step(1).onChange(() => {
+            this.apperanceFolder.add(this, 'branches').min(2).max(20).step(1).onChange(() => {
                 this.setGalaxyGeometry()
                 this.setMesh()
             })
 
-            this.propertiesFolder.add(this, 'spin').min(-5).max(5).step(0.001).onChange(() => {
+            this.apperanceFolder.add(this, 'spin').min(-5).max(5).step(0.001).onChange(() => {
                 this.setGalaxyGeometry()
                 this.setMesh()
             })
 
-            this.propertiesFolder.add(this, 'randomness').min(0).max(2).step(0.001).onChange(() => {
+            this.randomnessFolder.add(this, 'randomness').min(0).max(2).step(0.001).onChange(() => {
                 this.setGalaxyGeometry()
                 this.setMesh()
             })
 
-            this.propertiesFolder.add(this, 'randomnessPower').min(1).max(10).step(0.001).onChange(() => {
+            this.randomnessFolder.add(this, 'randomnessPower').min(1).max(10).step(0.001).onChange(() => {
                 this.setGalaxyGeometry()
                 this.setMesh()
             })
@@ -118,6 +137,9 @@ export default class Galaxy
 
             // rotating speed
             this.animationsFolder.add(this, 'speed').name('rotating speed').min(0).max(0.01).step(0.0001)
+            this.animationsFolder.add(this, 'direction', { counterclockwise: 1, clockwise: -1 }).name('rotating direction').onChange(() => {
+                console.log(this.direction)
+            })
         }
 
         this.setMaterial()
@@ -191,6 +213,6 @@ export default class Galaxy
 
     update()
     {
-        this.mesh.rotation.y += this.time.delta * this.speed
+        this.mesh.rotation.y += this.time.delta * this.speed * this.direction
     }
 }
