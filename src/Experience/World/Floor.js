@@ -215,6 +215,7 @@ export default class Floor
 
         this.fakeGroundMesh = new THREE.Mesh(this.fakeGroundGeometry, this.fakeGroundMaterial)
         this.fakeGroundMesh.rotation.x = - Math.PI * 0.5
+        this.fakeGroundMesh.position.y = -0.05
         this.scene.add(this.fakeGroundMesh)
     }
 }
