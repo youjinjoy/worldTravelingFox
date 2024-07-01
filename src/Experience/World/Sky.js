@@ -18,7 +18,7 @@ export default class Sky
 
     setGeometry()
     {
-        this.geometry = new THREE.SphereGeometry(this.radius+0.01, 32, 64)
+        this.geometry = new THREE.SphereGeometry(this.radius + 0.3, 32, 64)
     }
 
     setMaterial()
@@ -35,6 +35,7 @@ export default class Sky
     setMesh()
     {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
+        this.mesh.position.y -= 1.2
         this.scene.add(this.mesh)
     }
 }

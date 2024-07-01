@@ -8,6 +8,7 @@ import Sky from './Sky.js'
 import Ball from './Ball.js'
 import Particles from './Particles.js'
 import Galaxy from './Galaxy.js'
+import Ocean from './Ocean.js'
 
 export default class World
 {
@@ -19,7 +20,7 @@ export default class World
         
         this.gravity = -9.82*3
 
-        this.worldRadius = 20
+        this.worldRadius = 12
 
         // Wait for resources
         this.resources.on('ready', () =>
@@ -59,6 +60,8 @@ export default class World
                 colors: { inside: 0x76321e, outside: 0x335099 },
                 animation: { speed: 0.0002, direction: -1 }
             })
+
+            this.ocean = new Ocean(this.worldRadius)
         })
     }
 
@@ -86,6 +89,11 @@ export default class World
         {
             this.galaxy1.update()
             this.galaxy2.update()
+        }
+
+        if(this.ocean)
+        {
+            this.ocean.update()
         }
 
     }

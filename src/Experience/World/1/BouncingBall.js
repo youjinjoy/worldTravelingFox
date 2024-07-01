@@ -65,7 +65,7 @@ export default class BouncingBall
             })
         )
         this.sphereShadow.rotation.x = - Math.PI * 0.5
-        this.sphereShadow.position.y = 0.02
+        this.sphereShadow.position.y = 0.01
         this.sphereShadow.scale.x = - this.shadowAngleXCoefficient * 0.5
         this.sphereShadow.scale.z = this.shadowAngleZCoefficient * 0.5
         
