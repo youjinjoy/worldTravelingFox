@@ -8,8 +8,8 @@ export default class Galaxy
     constructor({        
         id = num++,
         position = { x: 15, y: 2, z: -40},
-        rotation = { x: Math.PI * 0.1, y: Math.PI * 0.4, z: 0},
-        appearance = { size: 0.1, count: 2000, radius: 3, branches: 4, spin: 1 },
+        rotation = { x: Math.PI * 0.15, y: Math.PI * 0.4, z: 0},
+        appearance = { size: 0.2, count: 2000, radius: 4, branches: 4, spin: 1 },
         randomness = { value: 0.2, power: 3 },
         colors = { inside: 0xff6030, outside: 0x1b3984 },
         animation = { speed: 0.0003, direction: 1 }
@@ -139,7 +139,6 @@ export default class Galaxy
             // rotating speed
             this.animationsFolder.add(this, 'speed').name('rotating speed').min(0).max(0.01).step(0.0001)
             this.animationsFolder.add(this, 'direction', { counterclockwise: 1, clockwise: -1 }).name('rotating direction').onChange(() => {
-                console.log(this.direction)
             })
         }
 

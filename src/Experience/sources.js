@@ -65,6 +65,6 @@ export default [
     {
         name: 'grassAlphaTexture',
         type: 'texture',
-        path: 'textures/grass/alpha.png'
+        path: 'textures/grass/alpha3.png'
     }
 ]

@@ -9,7 +9,7 @@ export default class Ocean
 {
     constructor(radius)
     {
-        this.radius = radius - 0.5
+        this.radius = radius
 
         this.experience = new Experience()
         this.scene = this.experience.scene

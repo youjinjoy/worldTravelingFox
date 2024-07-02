@@ -22,11 +22,11 @@ export default class Floor
         this.groundGeometry = new THREE.CircleGeometry(5, 64)
 
         // grass
-        this.grassGeometry = new THREE.PlaneGeometry(this.radius*2, this.radius*2, 256, 256)
+        this.grassGeometry = new THREE.PlaneGeometry(this.radius*2 + 0.1, this.radius*2 + 0.1, 256, 256)
         // this.grassGeometry = new THREE.CircleGeometry(this.radius, 256)
         
         // undergrass
-        this.undergrassGeometry = new THREE.CylinderGeometry(this.radius, this.radius, 1.2, 64, 1, true)
+        this.undergrassGeometry = new THREE.CylinderGeometry(this.radius, this.radius, 1.1, 64, 1, true)
         const ugsUVs = this.undergrassGeometry.attributes.uv.array;
         for (let i = 0; i < ugsUVs.length; i += 2) {
         if (ugsUVs[i + 1] === 1 || ugsUVs[i + 1] === 0) {
@@ -57,12 +57,12 @@ export default class Floor
 
         this.groundTextures.color = this.resources.items.groundColorTexture
         this.groundTextures.color.colorSpace = THREE.SRGBColorSpace
-        this.groundTextures.color.repeat.set(1.5, 1.5)
+        this.groundTextures.color.repeat.set(5, 5)
         this.groundTextures.color.wrapS = THREE.RepeatWrapping
         this.groundTextures.color.wrapT = THREE.RepeatWrapping
 
         this.groundTextures.normal = this.resources.items.groundNormalTexture
-        this.groundTextures.normal.repeat.set(1.5, 1.5)
+        this.groundTextures.normal.repeat.set(5, 5)
         this.groundTextures.normal.wrapS = THREE.RepeatWrapping
         this.groundTextures.normal.wrapT = THREE.RepeatWrapping
 
@@ -124,6 +124,7 @@ export default class Floor
         this.groundMaterial = new THREE.MeshStandardMaterial({
             map: this.groundTextures.color,
             normalMap: this.groundTextures.normal,
+            color: '#e6b950'
         })
 
         this.undergroundMaterial = new THREE.MeshBasicMaterial({
@@ -152,7 +153,7 @@ export default class Floor
             roughnessMap: this.grassTextures.roughness,
             alphaMap: this.grassTextures.alpha,
             transparent: true,
-            depthWrite: false
+            depthWrite: false,
         })
 
         // undergrass
@@ -208,14 +209,15 @@ export default class Floor
         // underground
         this.undergroundMesh = new THREE.Mesh(this.undergroundGeometry, this.undergroundMaterial)
         this.undergroundMesh.rotation.x = - Math.PI * 0.5
-        this.undergroundMesh.position.y = - 1.6
+        this.undergroundMesh.position.y = - 1.55
         this.undergroundMesh.receiveShadow = false
         this.undergroundMesh.rotation.x = Math.PI
         this.scene.add(this.undergroundMesh)
 
-        this.fakeGroundMesh = new THREE.Mesh(this.fakeGroundGeometry, this.fakeGroundMaterial)
+        this.fakeGroundMesh = new THREE.Mesh(this.fakeGroundGeometry, this.groundMaterial)
         this.fakeGroundMesh.rotation.x = - Math.PI * 0.5
-        this.fakeGroundMesh.position.y = -0.05
+        this.fakeGroundMesh.position.y = -0.01
+        this.fakeGroundMesh.receiveShadow = true
         this.scene.add(this.fakeGroundMesh)
     }
 }

@@ -29,19 +29,19 @@ export default class World
             this.floor = new Floor(this.worldRadius)
             this.sky = new Sky(this.worldRadius)
 
-            this.bouncingRedBall = new BouncingBall(0.2, new Vector3(-5,0,-5), 'red', this.floor.grassMesh)
-            this.bouncingBlueBall = new BouncingBall(0.2, new Vector3(-5,0,-5), 'blue', this.floor.grassMesh)
+            this.bouncingRedBall = new BouncingBall(0.2, new Vector3(-5,0,-2), 'red', this.floor.grassMesh)
+            this.bouncingBlueBall = new BouncingBall(0.2, new Vector3(-5,0,-2), 'blue', this.floor.grassMesh)
             this.bouncingBlueBall.bounceHeight = 2
             this.bouncingBlueBall.bounce = 4
             this.bouncingBlueBall.start = Math.PI * 0.2
             
-            this.bouncingOrangeBall = new BouncingBall(0.2, new Vector3(-6,0,-6), 'orange', this.floor.grassMesh)
+            this.bouncingOrangeBall = new BouncingBall(0.2, new Vector3(-6,0,-2), 'orange', this.floor.grassMesh)
             this.bouncingOrangeBall.bounceHeight = 1
             this.bouncingOrangeBall.speed = 5
             this.bouncingOrangeBall.start = Math.PI
             this.bouncingOrangeBall.orbitRadius = 0.5
 
-            this.limeBall = new Ball(0.4, new Vector3(-5,0,-7), 'lime')
+            this.limeBall = new Ball(0.4, new Vector3(-5,0,-4), 'lime')
             this.limeBall.setBakedShadow()
 
 
@@ -51,11 +51,11 @@ export default class World
             this.fox.setLight(this.environment)
 
             this.particles = new Particles(this.worldRadius)
-            this.galaxy1 = new Galaxy( {position : { x: 15, y: 2, z: -40}, colors: {inside: 0x2eff89, outside: 0x335099}})
+            this.galaxy1 = new Galaxy( {position : { x: 20, y: 2, z: -40}, colors: {inside: 0x2eff89, outside: 0x335099}})
             this.galaxy2 = new Galaxy({
-                position: { x: -30, y: 6, z: -70 },
-                rotation: { x: 0.2513, y: 1.2566, z: 0 },
-                appearance: { size: 0.3, count: 2000, radius: 7.7, branches: 3, spin: -2.591 },
+                position: { x: -20, y: 6, z: -40 },
+                rotation: { x: 0.8168, y: 1.2566, z: 0 },
+                appearance: { size: 0.3, count: 2000, radius: 6, branches: 3, spin: -2.591 },
                 randomness: { value: 0.744, power: 5.426 },
                 colors: { inside: 0x76321e, outside: 0x335099 },
                 animation: { speed: 0.0002, direction: -1 }

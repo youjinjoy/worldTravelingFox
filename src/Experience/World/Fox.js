@@ -2,6 +2,9 @@ import * as THREE from 'three'
 import Experience from '../Experience.js'
 import Movable from './Movable/Movable.js'
 
+import holographicVertexShader from './shaders/holographic/vertex.glsl'
+import holographicFragmentShader from './shaders/holographic/fragment.glsl'
+
 export default class Fox extends Movable
 {
     constructor()
@@ -43,7 +46,7 @@ export default class Fox extends Movable
             }
         })
     }
-
+    
     setAnimation()
     {
         this.animation = {}
