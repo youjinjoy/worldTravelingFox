@@ -6,6 +6,10 @@ import * as THREE from 'three';
 const overlayGeometry = new THREE.PlaneGeometry(2, 2, 1, 1)
 const overlayMaterial = new THREE.ShaderMaterial({
     transparent: true,
+    uniforms:
+    {
+        uAlpha: { value: 1 }
+    },
     vertexShader: `
         void main()
         {
@@ -13,9 +17,11 @@ const overlayMaterial = new THREE.ShaderMaterial({
         }
     `,
     fragmentShader: `
+        uniform float uAlpha;
+
         void main()
         {
-            gl_FragColor = vec4(0.0, 0.0, 0.0, .0);
+            gl_FragColor = vec4(0.0, 0.0, 0.0, uAlpha );
         }
     `
 

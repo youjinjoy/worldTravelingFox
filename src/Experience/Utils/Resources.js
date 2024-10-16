@@ -2,6 +2,8 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import EventEmitter from './EventEmitter.js'
 
+import { loadingManager } from '../Loading/LoadingManager.js'
+
 export default class Resources extends EventEmitter
 {
     constructor(sources)
@@ -21,9 +23,9 @@ export default class Resources extends EventEmitter
     setLoaders()
     {
         this.loaders = {}
-        this.loaders.gltfLoader = new GLTFLoader()
-        this.loaders.textureLoader = new THREE.TextureLoader()
-        this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader()
+        this.loaders.gltfLoader = new GLTFLoader(loadingManager)
+        this.loaders.textureLoader = new THREE.TextureLoader(loadingManager)
+        this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader(loadingManager)
     }
 
     startLoading()
