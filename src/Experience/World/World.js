@@ -10,12 +10,16 @@ import Particles from './Particles.js'
 import Galaxy from './Galaxy.js'
 import Ocean from './Ocean.js'
 
+import { overlay } from '../Loading/Loading.js'
+
 export default class World
 {
     constructor()
     {
         this.experience = new Experience()
         this.scene = this.experience.scene
+        this.scene.add(overlay) // Loading Overlay
+
         this.resources = this.experience.resources
         
         this.gravity = -9.82*3
