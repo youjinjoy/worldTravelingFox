@@ -30,15 +30,30 @@ const overlayMaterial = new THREE.ShaderMaterial({
 /**
  * Loaders
  */
+const loadingBarElement = document.querySelector('.loading-bar');
+
 export const loadingManager = new THREE.LoadingManager(
     // Loaded
     () => {
-        gsap.to(overlayMaterial.uniforms.uAlpha, { duration: 3, value: 0 })
+        window.setTimeout(() => {
+            gsap.to(overlayMaterial.uniforms.uAlpha, { duration: 3, value: 0 })
+            
+            loadingBarElement.classList.add('ended')
+            loadingBarElement.style.transform = ''
+        }, 500)
+
+        gsap.delayedCall(0.5, () => {
+            gsap.to(overlayMaterial.uniforms.uAlpha, { duration: 3, value: 0 })
+            
+            loadingBarElement.classList.add('ended')
+            loadingBarElement.style.transform = ''
+        })
     },
 
     // Progress
-    () => {
-        console.log('progress')
+    (itemUrl, itemsLoaded, itemsTotal) => {
+        const progressRatio = itemsLoaded/itemsTotal;
+        loadingBarElement.style.transform = `scale(${progressRatio})`
     }
 )
 
