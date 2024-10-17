@@ -13,6 +13,11 @@ body
     overflow: hidden;
 }
 
+body
+{
+    background-color: black;
+}
+
 .webgl
 {
     position: fixed;
